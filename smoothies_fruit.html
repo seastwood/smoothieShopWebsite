@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Smoothie Order Form</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="smoothie.js"></script>
+</head>
+<body>
+	<div class="navbar">
+		<div class="left">
+		<a href="order.html">
+		  <img src="image_home.png">
+		  <i class="fa fa-home"></i>
+		</a>
+		</div>
+		<div class="middle">
+			<img src="image_logo.png">
+		</div>
+		<div class="right">
+			<a href="cart.html">
+			<img src="image_cart.png">
+				<i class="fa fa-cart">
+				</i> <span class="cart-count">0</span></a>
+		</div>
+	</div>
+
+	<div class="category-bar">
+		<button class="active" onclick="filterSelection('all')">All</button>
+		<button onclick="filterSelection('fruit')">Fruit</button>
+		<button onclick="filterSelection('veggie')">Veggie</button>
+		<button onclick="filterSelection('rich')">Rich</button>
+		<button onclick="filterSelection('sweet')">Sweet</button>
+	</div>
+
+	<div class="container">
+
+<div class="smoothie fruit" data-category="fruit">
+    <img src="smoothie_fruit.png" class="animate-smoothie">
+    <h3>Fruit Smoothie 4</h3>
+    <p class="price" data-small-price="2.99" data-medium-price="4.99" data-large-price="6.99">$4.99</p>
+	<div class="sizes">
+	  <button class="size-button" data-size="small">S</button>
+	  <button class="size-button active" data-size="medium">M</button>
+	  <button class="size-button" data-size="large">L</button>
+	  <button class="nutrition-button">Nutrition Info</button>
+	  <button class="add-to-cart-button">Add to Cart</button>
+	</div>
+    <div class="nutrition-info" style="display: none;">
+        <h4>Nutrition Information</h4>
+        <ul>
+            <li>Calories: 150</li>
+            <li>Carbohydrates: 32g</li>
+            <li>Protein: 4g</li>
+            <li>Fat: 1g</li>
+        </ul>
+
+    </div>
+</div>
+	</div>
+
+
+<script>
+
+    const sizeButtons = document.querySelectorAll('.size-button');
+    const priceDisplay = document.querySelector('.price');
+	const nutritionButton = document.querySelector('.nutrition-button');
+    const nutritionInfo = document.querySelector('.nutrition-info');
+	const addToCartButtons = document.querySelectorAll('.add-to-cart-button');
+	const cartCountElement = document.querySelector('.cart-count');
+	let cartCount = localStorage.getItem('cartCount') || 0;
+
+	const cartItemIdElement = document.querySelector('.cart-item-id');
+	let cartItemId = localStorage.getItem('id') || 0;
+	// Set the cart count as the text content of the cart count element
+	cartCountElement.textContent = cartCount;
+	const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+    function changeSize(event) {
+        const clickedButton = event.target;
+        const newActiveButton = clickedButton;
+        const currentActiveButton = document.querySelector('.size-button.active');
+        if (newActiveButton !== currentActiveButton) {
+            currentActiveButton.classList.remove('active');
+            newActiveButton.classList.add('active');
+        }
+        const newPrice = "data-" + newActiveButton.dataset.size + "-price";
+        const updatedPrice = priceDisplay.getAttribute(newPrice);
+        priceDisplay.textContent = "$" + updatedPrice;
+    }
+
+    sizeButtons.forEach(button => {
+        button.addEventListener('click', changeSize);
+        if (button.dataset.size === "medium") {
+            button.classList.add('active');
+        }
+    });
+
+	nutritionButton.addEventListener('click', () => {
+        if (nutritionInfo.style.display === "none") {
+            nutritionInfo.style.display = "block";
+        } else {
+            nutritionInfo.style.display = "none";
+        }
+    });
+
+	function addToCart(event) {
+		const size = document.querySelector('.size-button.active').dataset.size;
+		const price = priceDisplay.getAttribute('data-' + size + '-price');
+
+		cartCount++;
+		cartCountElement.textContent = cartCount;
+		localStorage.setItem('cartCount', cartCount);
+
+
+		const smoothie = event.target.closest('.smoothie');
+		const smoothieName = smoothie.querySelector('h3').textContent;
+		const smoothieSize = smoothie.querySelector('.size-button.active').textContent;
+		const smoothiePrice = smoothie.querySelector('.price').textContent;
+		const order = {id: cartItemId,  name: smoothieName, size: smoothieSize, price: smoothiePrice, image: "smoothie_fruit.png" };
+		cart.push(order);
+		localStorage.setItem('cart', JSON.stringify(cart));
+		smoothieImage.style.animation = 'move-smoothie 1s forwards';
+		cartItemId++;
+
+	}
+
+	const smoothieImage = document.querySelector('.animate-smoothie');
+	addToCartButtons.forEach(button => {
+	  button.addEventListener('click', addToCart);
+
+	});
+
+</script>
+</body>
+</html>

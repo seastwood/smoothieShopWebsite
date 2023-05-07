@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Smoothie Shop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<div class="navbar">
+    <div class="left">
+        <a href="order.html">
+            <img src="image_home.png">
+            <i class="fa fa-home"></i>
+        </a>
+    </div>
+    <div class="middle">
+        <img src="image_logo.png">
+    </div>
+    <div class="right">
+        <img src="image_cart.png">
+        <a href="#">
+            <i class="fa fa-shopping-cart"></i>
+            <span class="cart-count">0</span>
+        </a>
+    </div>
+</div>
+<h1>Welcome to My Smoothie Shop</h1>
+<h1>Welcome to My Smoothie Shop</h1>
+<p>Click <a href="categories.html">here</a> to go to the homepage.</p>
+</body>
+</html>
+
+<!--const http = require('http');-->
+<!--const fs = require('fs');-->
+<!--const path = require('path');-->
+<!---->
+<!--const hostname = '192.168.1.214';-->
+<!--const port = 7180;-->
+<!---->
+<!--const server = http.createServer((req, res) => {-->
+<!--console.log(`Request for ${req.url} by method ${req.method}`);-->
+<!---->
+<!--if (req.method === 'GET') {-->
+<!--let fileUrl = req.url;-->
+<!--if (fileUrl === '/') {-->
+<!--fileUrl = '/index.html';-->
+<!--} else if (fileUrl === '/cart') {-->
+<!--fileUrl = '/cart.html';-->
+<!--}-->
+<!---->
+<!--const filePath = path.resolve(`./${fileUrl}`);-->
+<!--const fileExt = path.extname(filePath);-->
+<!--if (fileExt === '.html') {-->
+<!--fs.exists(filePath, (exists) => {-->
+<!--if (!exists) {-->
+<!--res.statusCode = 404;-->
+<!--res.setHeader('Content-Type', 'text/html');-->
+<!--res.end(`<html><body><h1>Error 404: ${fileUrl} not found</h1></body></html>`);-->
+<!--return;-->
+<!--}-->
+<!---->
+<!--res.statusCode = 200;-->
+<!--res.setHeader('Content-Type', 'text/html');-->
+<!--fs.createReadStream(filePath).pipe(res);-->
+<!--});-->
+<!--} else {-->
+<!--res.statusCode = 404;-->
+<!--res.setHeader('Content-Type', 'text/html');-->
+<!--res.end(`<html><body><h1>Error 404: ${fileUrl} not a HTML file</h1></body></html>`);-->
+<!--}-->
+<!--} else {-->
+<!--res.statusCode = 404;-->
+<!--res.setHeader('Content-Type', 'text/html');-->
+<!--res.end(`<html><body><h1>Error 404: ${req.method} not supported</h1></body></html>`);-->
+<!--}-->
+<!--});-->
+<!---->
+<!--server.listen(port, hostname, () => {-->
+<!--console.log(`Server running at http://${hostname}:${port}/`);-->
+<!--});-->

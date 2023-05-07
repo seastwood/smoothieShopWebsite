@@ -1,0 +1,161 @@
+<html>
+<head>
+    <title>Cart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+<body>
+  <div class="navbar">
+    <div class="left">
+        <a href="categories.html">
+            <img src="image_home.png">
+            <i class="fa fa-home"></i>
+        </a>
+    </div>
+    <div class="middle">
+        <a href="categories.html">
+            <img src="image_logo.png">
+            <i class="fa fa-logo"></i>
+        </a>
+    </div>
+    <div class="right">
+        <a href="order_history.html"  class="order-history-btn">Order History</a>
+
+        <a href="cart.html">
+            <img src="image_cart.png">
+            <i class="fa fa-shopping-cart"></i>
+            <span class="cart-count">0</span>
+        </a>
+
+    </div>
+</div>
+
+
+
+<div class="categories-container">
+    <div class="category-buttons">
+        <h3>Select Smoothie Category</h3>
+      <div class="smoothie-category" id="fruit-category">
+        <button class="category-button" onclick="showSmoothieOptions('fruit')">Fruit</button>
+      </div>
+      <div class="smoothie-category" id="green-category">
+        <button class="category-button" onclick="showSmoothieOptions('green')">Green</button>
+      </div>
+      <div class="smoothie-category" id="protein-category">
+        <button class="category-button" onclick="showSmoothieOptions('protein')">Protein</button>
+      </div>
+      <div class="smoothie-category" id="meal-category">
+        <button class="category-button" onclick="showSmoothieOptions('meal')">Meal</button>
+      </div>
+      <div class="smoothie-category" id="custom-category">
+        <button class="category-button" onclick="showSmoothieOptions('custom')">Create your own</button>
+      </div>
+    </div>
+    <div id="welcome-message">
+      <div class="welcome-message">
+        <h2>Welcome to our smoothie shop!</h2>
+      </div>
+    </div>
+    
+    <div id="welcome-image">
+    </div>
+    <div class="smoothie-options-container">
+
+      <div class="smoothie fruit" id="fruit-smoothies" style="display: none;">
+        <table>
+          <tbody id="fruit-items"></tbody>
+        </table>
+      </div>
+
+      <div class="smoothie green" id="green-smoothies" style="display: none;">
+        <table>
+          <tbody id="green-items"></tbody>
+        </table>
+      </div>
+
+      <div class="smoothie protein" id="protein-smoothies" style="display: none;">
+        <table>
+          <tbody id="protein-items"></tbody>
+        </table>
+      </div>
+
+      <div class="smoothie meal" id="meal-smoothies" style="display: none;">
+        <table>
+          <tbody id="meal-items"></tbody>
+        </table>
+      </div>
+
+      <div class="smoothie custom" id="custom-smoothies" style="display: none;">
+        <table>
+          <tbody id="custom-items"></tbody>
+        </table>
+      </div>
+
+    </div>
+</div>
+    <script src="categories.js"></script>
+    <script>
+      window.addEventListener('load', () => {
+        updateCart();
+      });
+    </script>
+</div>
+
+<!-- bottom navbar -->
+<nav class="bottom-nav">
+    <div class="total-price">
+        Total Price: <span id="total-price-value"></span>
+    </div>
+    <button class="go-to-cart-button">Go to Cart</button>
+</nav>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("total-price-value").textContent = calculateTotalPrice();
+  });
+
+  function showSmoothieOptions(category) {
+    // hide the welcome message
+  document.getElementById("welcome-message").style.display = "none";
+
+    var button = document.querySelector('#' + category + '-category .category-button');
+    var options = document.getElementById(category + "-smoothies");
+    var allOptions = document.querySelectorAll('.smoothie');
+    var allButtons = document.querySelectorAll('.category-button');
+    for (var i = 0; i < allOptions.length; i++) {
+        if (allOptions[i].id !== category + "-smoothies") {
+            allOptions[i].style.display = "none";
+        }
+    }
+        // Remove "active" class from any other active button
+        for (var i = 0; i < allButtons.length; i++) {
+        if (allButtons[i].classList.contains('active')) {
+            allButtons[i].classList.remove('active');
+        }
+    }
+
+    if (options.style.display === "none") {
+        options.style.display = "inline";
+        button.classList.add('active');
+    } else {
+        options.style.display = "none";
+        button.classList.remove('active');
+    }
+}
+</script>
+
+<script>
+    const goToCartButton = document.querySelector('.go-to-cart-button');
+    goToCartButton.addEventListener('click', () => {
+        window.location.href = 'cart.html';
+    });
+</script>
+
+<script>
+  
+</script>
+
+</body>
+</html>

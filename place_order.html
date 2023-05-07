@@ -1,0 +1,117 @@
+<html>
+<head>
+    <title>Cart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+<body>
+    <div class="navbar">
+        <div class="left">
+            <a href="categories.html">
+                <img src="image_home.png">
+                <i class="fa fa-home"></i>
+            </a>
+        </div>
+        <div class="middle">
+            <a href="categories.html">
+                <img src="image_logo.png">
+                <i class="fa fa-logo"></i>
+            </a>
+        </div>
+        <div class="right">
+            <a href="order_history.html"  class="order-history-btn">Order History</a>
+
+            <a href="cart.html">
+                <img src="image_cart.png">
+                <i class="fa fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </a>
+
+        </div>
+    </div>
+
+
+
+<div class="order-form">
+    <h2>Place Order</h2>
+    <form onsubmit="placeOrder(event)">
+        <label for="card-name">Name on Card:</label>
+        <input type="text" id="card-name" name="card-name" required>
+
+        <label for="card-number">Card Number:</label>
+        <input type="text" id="card-number" name="card-number" required>
+
+        <label for="exp-date">Expiration Date:</label>
+        <input type="date" id="exp-date" name="exp-date" required>
+
+        <label for="cvv">CVV:</label>
+        <input type="text" id="cvv" name="cvv" required>
+
+        <label for="zip-code">Zip Code:</label>
+        <input type="text" id="zip-code" name="zip-code" required>
+
+        <button type="submit">Complete Order</button>
+    </form>
+    <p id="order-number"></p>
+    <img id="apple-pay-button" src="apple_pay.png" alt="Apple Pay" class="apple-pay-button" onclick="placeOrder(event)">
+<img id="google-pay-button" src="google_pay.png" alt="Google Pay" class="google-pay-button" onclick="placeOrder(event)">
+</div>
+
+
+
+<div class='header'>
+    <h>Order Summary:</h>
+</div>
+
+<div class="cart-list">
+    <table>
+        <tbody id="cart-items"></tbody>
+    </table>
+</div>
+
+
+<script src="place_order.js"></script>
+
+
+<nav class="bottom-nav">
+    <div class="total-price">
+        Total Price: <span id="total-price-value"></span>
+    </div>
+</nav>
+
+<script>
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  const orderNumber = localStorage.getItem('orderNumber');
+  if (orderNumber) {
+    const orderNumberElement = document.getElementById('order-number');
+    orderNumberElement.textContent = `Your order has been placed. Order number: ${orderNumber}`;
+    localStorage.removeItem('orderNumber');
+  }
+});
+</script>
+
+
+<script>
+
+function updateCartCount(){
+    const cartCountElement = document.querySelector('.cart-count');
+    let cartCount = localStorage.getItem('cartCount') || 0;
+    // Set the cart count as the text content of the cart count element
+    cartCountElement.textContent = cartCount;
+}
+const cartCountElement = document.querySelector('.cart-count');
+let cartCount = localStorage.getItem('cartCount') || 0;
+// Set the cart count as the text content of the cart count element
+cartCountElement.textContent = cartCount;
+
+document.addEventListener("DOMContentLoaded", function() {
+document.getElementById("total-price-value").textContent = calculateTotalPrice();
+});
+
+</script>
+
+</body>
+</html>
